@@ -12,7 +12,7 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 
-import { TRPCReactProvider } from "~/trpc/react";
+import { ConvexClientProvider } from "~/convex/provider";
 import { SidebarProvider } from "~/components/ui/sidebar";
 
 import { AppSidebar } from "~/components/app-sidebar"
@@ -37,7 +37,7 @@ export default function RootLayout({
         <html lang="en" className={`${geist.variable}`}>
           <body className="w-full">
             <AppSidebar />
-            <TRPCReactProvider>{children}</TRPCReactProvider>
+            <ConvexClientProvider>{children}</ConvexClientProvider>
           </body>
         </html>
       </SidebarProvider>
