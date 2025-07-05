@@ -9,10 +9,11 @@ import {
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { cn } from '~/lib/utils'
 import { headers } from 'next/headers'
+import Link from 'next/link'
 
 export async function AppSidebar() {
   const headersList = await headers()
-  const referer = headersList.get('referer') || ''
+  const referer = headersList.get('referer') ?? '';
   const pathname = referer == '' ? '/' : (new URL(referer)).pathname;
 
   const activeLinkClass = (path: string) =>
@@ -27,10 +28,10 @@ export async function AppSidebar() {
         <SidebarMenu className="relative h-full text-2xl">
           <SidebarMenuItem>
             <SidebarMenuButton className="h-24">
-              <a href="/" className={activeLinkClass('/')}>
+              <Link href="/" className={activeLinkClass('/')}>
                 <Home size={64} />
                 <span className="text-2xl">Home</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
