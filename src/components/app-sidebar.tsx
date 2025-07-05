@@ -36,8 +36,8 @@ export async function AppSidebar() {
 
           <SignedOut>
             <SidebarMenuItem>
-              <SignInButton mode="modal" className={cn(activeLinkClass('/signin'), 'px-6 py-2')}>
-                <div className="flex items-center gap-4">
+              <SignInButton mode="redirect">
+                <div className={cn(activeLinkClass('/signin'), 'px-6 py-2 flex items-center gap-4')}>
                   <User size={64} />
                   <span className="text-2xl">Sign In</span>
                 </div>
@@ -45,8 +45,8 @@ export async function AppSidebar() {
             </SidebarMenuItem>
 
             <SidebarMenuItem>
-              <SignUpButton mode="modal" className={cn(activeLinkClass('/signup'), 'px-[28.5px] py-2 gap-3')}>
-                <div className="flex items-center gap-4">
+              <SignUpButton mode="redirect">
+                <div className={cn(activeLinkClass('/signup'), 'px-[28.5px] py-2 flex items-center gap-4')}>
                   <UserPen size={64} />
                   <span className="text-2xl">Sign Up</span>
                 </div>
