@@ -1,77 +1,58 @@
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
-import { Home, User, UserPen } from 'lucide-react';
-
+import { Home, User, UserPen } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
-} from "~/components/ui/sidebar"
-
-import { cn } from '~/lib/utils';
-import { headers } from 'next/headers';
+  SidebarMenuButton,
+} from '~/components/ui/sidebar'
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
+import { cn } from '~/lib/utils'
+import { headers } from 'next/headers'
 
 export async function AppSidebar() {
-  const headersList = await headers();
-  const referer = headersList.get('referer') || '';
-  const url = new URL(referer);
-  const pathname = url.pathname;
+  const headersList = await headers()
+  const referer = headersList.get('referer') || ''
+  const pathname = referer == '' ? '/' : (new URL(referer)).pathname;
 
-  console.log(pathname)
+  const activeLinkClass = (path: string) =>
+    cn(
+      'w-full flex items-center gap-4 px-4 rounded-[12px]',
+      pathname === path && 'bg-sky-600/20 border-sky-600 border-2'
+    )
 
   return (
     <Sidebar>
       <SidebarContent>
-        <SidebarMenu className="relative h-full text-xl">
+        <SidebarMenu className="relative h-full text-2xl">
           <SidebarMenuItem>
-            <SidebarMenuButton
-              className={cn('h-24', {
-                'bg-blue-500 bg-opacity-20': pathname === '/',
-              })}
-            >
-              <a href="/" className="w-full flex items-center gap-4">
+            <SidebarMenuButton className="h-24">
+              <a href="/" className={activeLinkClass('/')}>
                 <Home size={64} />
                 <span className="text-2xl">Home</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              className={cn('h-24', {
-                'bg-blue-500 bg-opacity-20': pathname === '/signin',
-              })}
-            >
-              <a href="/signin" className="w-full flex items-center gap-4">
-                <User size={64} />
-                <span className="text-2xl">Sign In</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <SignedOut>
+            <SidebarMenuItem>
+              <SignInButton mode="modal" className={cn(activeLinkClass('/signin'), 'px-6 py-2')}>
+                <div className="flex items-center gap-4">
+                  <User size={64} />
+                  <span className="text-2xl">Sign In</span>
+                </div>
+              </SignInButton>
+            </SidebarMenuItem>
 
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              className={cn('h-24', {
-                'bg-blue-500 bg-opacity-20': pathname === '/signup',
-              })}
-            >
-              <a href="/signup" className="w-full flex items-center gap-4">
-                <UserPen size={64} />
-                <span className="text-2xl">Sign Up</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SignUpButton mode="modal" className={cn(activeLinkClass('/signup'), 'px-[28.5px] py-2 gap-3')}>
+                <div className="flex items-center gap-4">
+                  <UserPen size={64} />
+                  <span className="text-2xl">Sign Up</span>
+                </div>
+              </SignUpButton>
+            </SidebarMenuItem>
+          </SignedOut>
 
           <SignedIn>
             <SidebarMenuItem className="absolute bottom-1 right-2">
@@ -81,6 +62,5 @@ export async function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
     </Sidebar>
-  );
+  )
 }
-
