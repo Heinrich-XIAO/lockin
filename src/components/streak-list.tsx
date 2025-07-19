@@ -23,7 +23,7 @@ export default function StreakList() {
   const [inputValue, setInputValue] = useState<string>("");
 
   useEffect(() => {
-    setStreaks(JSON.parse(localStorage.getItem("streaks") || "[]"))
+    setStreaks(JSON.parse(localStorage.getItem("streaks") ?? "[]") as Streak[])
   }, [])
 
   const addStreak = () => {
@@ -51,7 +51,7 @@ export default function StreakList() {
           <DialogHeader>
             <DialogTitle>Create Streak</DialogTitle>
             <DialogDescription>
-              Create a new streak for you to complete regularly. Click Create once you're done.
+              {"Create a new streak for you to complete regularly. Click Create once you're done."}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
