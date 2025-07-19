@@ -25,9 +25,14 @@ export default function StreakList() {
 
   return (
     <main className="flex min-h-screen flex-col bg-green-500 text-white">
-        <Button className="mt-6 w-min" asChild>
-            <button onClick={addStreak}>Add new Streak</button>
-        </Button>
+      <ul>
+        {streaks.map((streak, index) => (
+          <li key={index}>{streak.name}</li>
+        ))}
+      </ul>
+      <Button className="mt-6 w-min" asChild>
+          <button onClick={addStreak}>Add new Streak</button>
+      </Button>
     </main>
   );
 }
