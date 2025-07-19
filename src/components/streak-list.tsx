@@ -41,11 +41,6 @@ export default function StreakList() {
 
   return (
     <main className="flex min-h-screen flex-col bg-green-500 text-white">
-      <ul>
-        {streaks.map((streak, index) => (
-          <li key={index}>{streak.name}</li>
-        ))}
-      </ul>
       <Dialog>
         <DialogTrigger asChild>
           <Button className="mt-6 w-min">
@@ -66,7 +61,6 @@ export default function StreakList() {
               </Label>
               <Input
                 id="name"
-                defaultValue="Homework"
                 className="col-span-3"
                 required
                 value={inputValue}
@@ -83,6 +77,15 @@ export default function StreakList() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <ul>
+        {streaks.map((streak, index) => (
+          <li key={index}>
+            <div className="bg-black br-5 rounded-lg h-20">
+              <p className="ml-2 mt-2 text-wrap w-[100px]">{streak.name}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }
